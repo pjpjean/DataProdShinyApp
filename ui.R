@@ -29,11 +29,13 @@ shinyUI(fluidPage(
              sidebarLayout(
                sidebarPanel(
                  selectInput('selVar', h4('Select variables to plot'), varPairs),
-                 hr(),
+                 br(),
                  radioButtons("optModel", label = h4("Pick your classifier"),
                               choices = m.choices, 
                               selected = 1),
-                 br()                 
+                 hr(),
+                 p("Get the source code on ", 
+                   a(href="https://github.com/pjpjean/DataProdShinyApp", "Github"))
                ),
                mainPanel(
                  plotOutput('plot1')
@@ -43,7 +45,8 @@ shinyUI(fluidPage(
     tabPanel("More information", 
              h5("How to use it"),
              p("Use the sidebar panel list box to select the variables you want to plot.",
-               "Then, choose one of the available classification algorithms below and wait a few seconds."),
+               "Then, choose one of the available classification algorithms below and wait a few seconds. ",
+               "That's it!"),
              br(),
              h5("How it works"),
              p("This application uses the", strong("caret"), "package to train a classification algorithm
@@ -55,6 +58,7 @@ shinyUI(fluidPage(
                code("image"), " is used to create a bitmap plot, each pixel color based on the
                predicted class for that point and finally, the ", code("iris"),
                " dataset points are laid over the plot."),
+             p("Notice that models with random parameters might generate different boundaries in each run."),
              br(),
              h5("Dataset and models"),
              p("The ", code("iris"), " dataset is perhaps the best known database 
@@ -62,16 +66,16 @@ shinyUI(fluidPage(
                centimeters of the variables sepal length and width and petal length and width, 
                respectively, for 50 flowers from each of 3 species of iris. The species are ",
                em("Iris setosa"), ", ", em("versicolor"), " and ", em("virginica"), "."),
-             HTML("<table> <thead> <tr> <th align='left'> caret method </th> <th align='left'>", 
-                  " name </th> </tr> </thead><tbody>", 
-                  "<tr> <td align='left'> multinom </td> <td align='left'> Penalized Multinomial Regression </td> </tr>", 
-                  "<tr> <td align='left'> nnet </td> <td align='left'> Neural Network </td> </tr>", 
-                  "<tr> <td align='left'> rf </td> <td align='left'> Random Forest </td> </tr>", 
-                  "<tr> <td align='left'> nb </td> <td align='left'> Naive Bayes </td> </tr>", 
-                  "<tr> <td align='left'> lda </td> <td align='left'> Linear Discriminant Analysis </td> </tr>", 
-                  "<tr> <td align='left'> C5.0 </td> <td align='left'> C5.0 </td> </tr>", 
-                  "<tr> <td align='left'> knn </td> <td align='left'> k-Nearest Neighbors </td> </tr>", 
-                  "</tbody></table>"),
+             p("These are the available algorithms with their", code("caret"), "identifiers."),
+             tagList(tags$ul(
+               tags$li(code("multinom")," - Penalized Multinomial Regression"),
+               tags$li(code("lda")," - Linear Discriminant Analysis"),
+               tags$li(code("nnet")," - Neural Network"),
+               tags$li(code("C5.0")," - C5.0"),
+               tags$li(code("rf")," - Random Forest"),
+               tags$li(code("knn")," - k-Nearest Neighbors"),
+               tags$li(code("svmRadialCost")," - Support Vector Machine (RBF Kernel)")
+             )),
              br(),
              h5("References"),
              p("SHINY by RStudio. ", strong("The 'Iris k-means clustering' example."),
@@ -85,7 +89,9 @@ shinyUI(fluidPage(
                  "http://www.mathworks.com/machine-learning/examples.html?file=/products/demos/machine-learning/decision_surface/decision_surface.html")),
              p("UCI Machine Learning repository. ", strong("Iris Data Set."),
                a(href="https://archive.ics.uci.edu/ml/datasets/Iris",
-                 "https://archive.ics.uci.edu/ml/datasets/Iris"))
+                 "https://archive.ics.uci.edu/ml/datasets/Iris")),
+             p("© 2014, ", 
+               a(href="https://github.com/pjpjean", "Paulo Jean"))             
     )
   )
 ))
